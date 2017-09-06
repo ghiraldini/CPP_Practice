@@ -11,15 +11,15 @@ void print(std::vector<int> a){
 
 std::vector<int> shift(std::vector<int> a, int n, int k){
 	std::vector<int> s(n);
+	int newIdx=0;
 	int j=0;
-	for(int i=k; i<=n; i++){
-		s[i] = a.at(j++);
+	for(int i=0; i<n; i++){
+		newIdx = i + n - k;
+		if(newIdx >= n) newIdx=j++;
+		s[newIdx] = a.at(i);
 	}
-	j--;
-	for(int i=0; i<k; i++){
-		s[i] = a.at(j++);
-	}	
 	return s;
+	
 }
 
 /*
@@ -29,17 +29,21 @@ Input:
 	1 2 3 4 5 (array)
 Output:
 	5 1 2 3 4
+
+old Idx	New Idx Size Shft
+0	1	5	4
+1	2	5	4
+2	3	5	4
+3	4	5	4
+4	0	5	4
+
 */
 
 int main(int argc, char* argv[]){
 	int n=8,k=3,t;
 	std::vector<int> a;
 
-//	std::cin >> n;
-//	std::cin >> k;
-
 	for(int i=1; i<=n; i++){
-//		std::cin >> t;
 		a.push_back(i);
 	}
 	

@@ -4,43 +4,67 @@
 #include <unordered_map>
 #include <algorithm>
 
-std::string ransom_note(std::vector<std::string>, std::vector<std::string>);
+bool ransom_note(std::vector<std::string>, std::vector<std::string>);
 void print_map(std::unordered_map<std::string, unsigned int> m);
 
 int main(int argc, char* argv[]){
 	int n=6,m=4;
 
-	std::vector<std::string> note;
-	std::vector<std::string> magazine;
+	// True
+	std::vector<std::string> note = {"elo", "lxkvg", "bg", "mwz", "clm", "w"};
+	std::vector<std::string> magazine = {"apgo", "clm", "w", "lxkvg", "mwz", "elo", "bg", "elo", "lxkvg", "elo", "apgo", "apgo", "w", "elo", "bg"};
+/*
+	note.push_back("two");
+	note.push_back("times");
+	note.push_back("two");
+	note.push_back("is");
+	note.push_back("four");
 
-	note.push_back("give");
-	note.push_back("me");
-	note.push_back("grand");
-	note.push_back("today");
-
-	magazine.push_back("give");
-	magazine.push_back("me");
-	magazine.push_back("one");
-	magazine.push_back("grand");
-	magazine.push_back("today");
-	magazine.push_back("night");
-
-	std::cout << ransom_note(note, magazine) << std::endl;
+	magazine.push_back("two");
+	magazine.push_back("times");
+	magazine.push_back("three");
+	magazine.push_back("is");
+	magazine.push_back("not");
+	magazine.push_back("four");
+*/
+	std::cout << ransom_note(magazine, note) << std::endl;
 
 	
 	return 0;
 }
 
 
-std::string ransom_note(std::vector<std::string> n, std::vector<std::string> m){
-	std::unordered_map<std::string, unsigned int> mag_cnt;
-	std::unordered_map<std::string, unsigned int> useable;
-	int cnt = 1;
+bool ransom_note(std::vector<std::string> magazine, std::vector<std::string> ransom){
+	std::unordered_map<std::string, unsigned int> note;
+	std::unordered_map<std::string, unsigned int> mag;
+	std::unordered_map<std::string, unsigned int> comm;
+	bool ret = true;
+
+	// Add magazine words to map
+	auto updateMag = [&mag](std::string &myStr){
+		mag.insert( std::pair<std::string,unsigned int> (myStr,mag[myStr]++) ); 
+	};
+	std::for_each(std::begin(magazine), std::end(magazine), updateMag);
+
+	// Add ransom words to map & see if there are words that
+	// are not included in magazine
+	auto updateNote = [&note, &mag, &ret](std::string &myStr){
+		note.insert( std::pair<std::string,unsigned int> (myStr,note[myStr]++) ); 
+		const auto& it = mag.find(myStr);
+		if( it == mag.end() ){
+			ret = false;
+		}
+	};
+	std::for_each(std::begin(ransom), std::end(ransom), updateNote);
 	
-	for(int i=0; i<m.size(); i++){
-		mag_cnt.insert( std::make_pair<std::string, unsigned int>(m.at(i),cnt) );	
+	// Check if there are the same frequency of common words
+	for(auto& x: note){
+		if( (float)note[x.first] - (float)mag[x.first] > 0 ){
+			ret = false;
+		}
 	}
-	print_map(mag_cnt);
+
+	return ret;
 }
 
 void print_map(std::unordered_map<std::string, unsigned int> m){
