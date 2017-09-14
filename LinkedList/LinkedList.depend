@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1503940445 source:c:\users\jason\documents\c++\linkedlist\link.cpp
+	"Link.h"
+	<iostream>
+
+1503939617 c:\users\jason\documents\c++\linkedlist\link.h
+	<string>
+
+1503940065 source:c:\users\jason\documents\c++\linkedlist\main.cpp
+	<iostream>
+	<string>
+	"Link.h"
+

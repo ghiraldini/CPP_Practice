@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1503959725 source:c:\users\jason\documents\c++\binarytree\main.cpp
+	<iostream>
+	"BST.h"
+
+1503959603 c:\users\jason\documents\c++\binarytree\bst.h
+
+1503960399 source:c:\users\jason\documents\c++\binarytree\bst.cpp
+	"BST.h"
+	<string>
+	<iostream>
+	<iomanip>
+
