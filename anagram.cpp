@@ -78,11 +78,11 @@ int del_num(std::string a, std::string b){
 	for(auto& x: comm){
 		int diff_1 = comm[x.first] - cnt_1[x.first];
 		int diff_2 = comm[x.first] - cnt_2[x.first];
-		sum += abs(abs(diff_1) - abs(diff_2));
+		sum += abs( abs(diff_1) - abs(diff_2) );
 	}		
 		
 
-	return sum+notComm+notComm2;	
+	return sum + notComm + notComm2;	
 }
 
 
